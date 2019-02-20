@@ -25,10 +25,36 @@
  * 
  */
 /**
+ * @description 暴力求解，时间复杂度 O(n^2)
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+// var twoSum = function(nums, target) {
+//   for (var i = 0; i < nums.length; i++) {
+//     for (var j = i + 1; j < nums.length; j++) {
+//       if (nums[i] + nums[j] === target) {
+//         return [i, j];
+//       }
+//     }
+//   }
+// };
+
+/**
+ * @description 利用字典数据结构，时间复杂度 O(n)
  * @param {number[]} nums
  * @param {number} target
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    
-};
+  var map = {};
+  var tmp;
+  for (var i = 0; i < nums.length; i++) {
+    tmp = target - nums[i];
+    if (map[tmp] !== undefined) {
+      return [map[tmp], i];
+    } else {
+      map[nums[i]] = i;
+    }
+  }
+}
