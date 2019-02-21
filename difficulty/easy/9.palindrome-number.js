@@ -39,9 +39,40 @@
  * 
  */
 /**
+ * @description 通过获取每位数字，然后进行头尾对比得出结果
+ * @summary 14.02% 528 ms
  * @param {number} x
  * @return {boolean}
  */
 var isPalindrome = function(x) {
-    
+  if (x < 0 || (x > 0 && x % 10 === 0)) return false;
+  // 将数字转换为字符串来获取数字位数，不符合要求
+  var length = x.toString().length;
+  var head, tail;
+  for (var i = 1; i < length; i++, length--) {
+    head = Math.floor(x / Math.pow(10, length-1)) % 10;
+    tail = Math.floor(x / Math.pow(10, i - 1)) % 10;
+    if (head !== tail) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/**
+ * @description 官方答案：反转后面一半数字然后与前面一半进行对比。关键在于判断什么时候反转到一半。
+ * @summary  7.38% 616 ms
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+  if (x < 0 || (x > 0 && x % 10 === 0)) return false;
+  var lastNumber;
+  var reverseNumber = 0;
+  while (x > reverseNumber) {
+    lastNumber = x % 10;
+    reverseNumber = reverseNumber * 10 + lastNumber;
+    x = (x - lastNumber) / 10;
+  }
+  return x === reverseNumber || x === Math.floor(reverseNumber/10);
 };
