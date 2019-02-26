@@ -81,49 +81,52 @@ var countAndSay = function(n) {
 };
 
 /**
+ * @bug （该方法会导致数字溢出）
  * @description 将输入字符串转变为数字进行处理，得出下一次输出，将最后得出的数字转为字符串
- * @summary 16.99% 116 ms
+ * @summary 
  * @param {number} n
  * @return {string}
  */
-var countAndSay = function(n) {
-  if (n===1) return '1'; 
-  var number = 1;
-  var lastNumber;
-  var result;
-  var char;
-  var count;
-  var power;
-  for (var i = 1; i < n; i++) {
-    count = 1;
-    char = number % 10;
-    power = 1;
-    result = 0;
-    number = (number - char) / 10;
-    while(true) {
-      lastNumber = number % 10;
-      if (lastNumber <= 0) {
-        result = result + count * power * 10 + char * power;
-        break;
-      }
-      if (char === lastNumber) {
-        count++;
-      } else {
-        result = result + count * power * 10 + char * power;
-        power = power * 10;
-      }
-      number = (number - lastNumber) / 10;
-    }
-    number = result;
-  }
+// var countAndSay = function(n) {
+//   if (n===1) return '1'; 
+//   var number = 1;
+//   var lastNumber;
+//   var result;
+//   var char;
+//   var count;
+//   var power;
+//   for (var i = 1; i < n; i++) {
+//     count = 1;
+//     char = number % 10;
+//     power = 1;
+//     result = 0;
+//     number = (number - char) / 10;
+//     while(true) {
+//       lastNumber = number % 10;
+//       if (lastNumber <= 0) {
+//         result = result + count * power * 10 + char * power;
+//         break;
+//       }
+//       if (char === lastNumber) {
+//         count++;
+//       } else {
+//         result = result + count * power * 10 + char * power;
+//         power = power * 100;
+//         count = 1;
+//         char = lastNumber;
+//       }
+//       number = (number - lastNumber) / 10;
+//     }
+//     number = result;
+//   }
 
-  return '' + result;
-};
+//   return '' + result;
+// };
 
 // 测试用例
-console.log(countAndSay(1));
-console.log(countAndSay(2));
-console.log(countAndSay(3));
-console.log(countAndSay(4));
-console.log(countAndSay(5));
+// console.log(countAndSay(1));
+// console.log(countAndSay(2));
+// console.log(countAndSay(3));
+// console.log(countAndSay(4));
+// console.log(countAndSay(5));
 

@@ -66,6 +66,8 @@ var strStr = function(haystack, needle) {
   return index;
 };
 
+// 使用kmp算法
+
 // 测试用例
 // console.log(strStr('hello', 'll'));
 // console.log(strStr('aaaaa', 'bba'));

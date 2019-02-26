@@ -62,8 +62,40 @@
 // };
 
 /**
- * @description 分治递归
+ * @description 分治递归 + 二分法
  * @summary 4.85% 156 ms
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+// var searchInsert = function(nums, target) {
+//   // 排除特殊情况
+//   if (target < nums[0]) return 0;
+//   if (nums[nums.length - 1] < target) return nums.length;
+//   // 定义递归函数
+//   function _searchInsert(nums, target, start, end) {
+//     if (end <= start) return start; 
+//     if (nums[start] === target) return start;
+//     if (nums[end] === target) return end; 
+
+//     var divIndex = Math.floor((start + end) / 2);
+//     var firstEnd = divIndex;
+//     var secondStart = divIndex + 1;
+//     if (nums[firstEnd] < target && target < nums[secondStart]) {
+//       return secondStart;
+//     } else if (target <= nums[firstEnd]) {
+//       return _searchInsert(nums, target, start, firstEnd);
+//     } else {
+//       return _searchInsert(nums, target, secondStart, end);
+//     }
+//   }
+//   // 开始递归
+//   return _searchInsert(nums, target, 0, nums.length - 1);
+// };
+
+/**
+ * @description 循环 + 二分法 与上面的递归法可发现，创建函数和递归的代价远大于使用循环
+ * @summary 37.88% 88 ms
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
@@ -72,25 +104,21 @@ var searchInsert = function(nums, target) {
   // 排除特殊情况
   if (target < nums[0]) return 0;
   if (nums[nums.length - 1] < target) return nums.length;
-  // 定义递归函数
-  function _searchInsert(nums, target, start, end) {
-    if (end <= start) return start; 
-    if (nums[start] === target) return start;
-    if (nums[end] === target) return end; 
 
-    var divIndex = Math.floor((start + end) / 2);
-    var firstEnd = divIndex;
-    var secondStart = divIndex + 1;
-    if (nums[firstEnd] < target && target < nums[secondStart]) {
-      return secondStart;
-    } else if (target <= nums[firstEnd]) {
-      return _searchInsert(nums, target, start, firstEnd);
+  var low = 0;
+  var high = nums.length - 1;
+  var mid;
+  while (low <= high) {
+    mid = Math.floor((low + high) / 2);
+    if (nums[mid] === target) return mid;
+    if (target < nums[mid]) {
+      high = mid - 1;
     } else {
-      return _searchInsert(nums, target, secondStart, end);
+      low = mid + 1;
     }
   }
-  // 开始递归
-  return _searchInsert(nums, target, 0, nums.length - 1);
+  // 难点：为什么要返回low
+  return low;
 };
 
 // 测试用例
